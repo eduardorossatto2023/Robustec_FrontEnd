@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await me(); // verifica se o token é válido
+      } catch {
+        alert("Sessão expirada. Faça login novamente.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Bem-vindo à Home 🚀</h1>
+  <p>Aqui por enquanto é só uma tela em branco.</p>
+</body>
+</html>

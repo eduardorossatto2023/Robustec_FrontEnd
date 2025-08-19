@@ -1,9 +1,6 @@
-// src/services/api.js
+const API_URL = "http://localhost:8080";
 
-const API_URL = "http://localhost:8080"; // teu back
-
-// Função para login
-export async function login(email, password) {
+async function login(email, password) {
   const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -15,15 +12,13 @@ export async function login(email, password) {
     throw new Error(msg || "Erro no login");
   }
 
-  return res.json(); // retorna { access_token, refresh_token, user }
+  return res.json();
 }
 
-// Função para pegar info do usuário logado
-export async function me() {
+async function me() {
   const token = localStorage.getItem("token");
   const res = await fetch(`${API_URL}/auth/me`, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
