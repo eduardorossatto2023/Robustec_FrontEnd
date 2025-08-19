@@ -1,3 +1,5 @@
+// js/main.js
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
 
@@ -9,24 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       try {
-        const res = await fetch("http://localhost:8080/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
-
-        if (!res.ok) {
-          alert("Credenciais inválidas");
-          return;
-        }
-
-        const data = await res.json();
+        const data = await login(email, password); // função do api.js
         localStorage.setItem("token", data.access_token);
-
-        // Vai para home.html
         window.location.href = "home.html";
       } catch (err) {
-        alert("Erro ao conectar com o servidor");
+        alert(err.message);
       }
     });
   }
