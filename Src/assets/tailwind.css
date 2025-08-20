@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    .btn {
+        @apply bg-blue-600 text-white px-4 py-2 rounded;
+    }
+    .btn:hover {
+        @apply bg-blue-700;
+    }
+    .btn:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+    .input {
+        @apply w-full rounded border border-slate-600 bg-slate-800 px-3 py-2 text-slate-100 placeholder-slate-400 caret-indigo-400 outline-none;
+        /* ← sem "focus:" aqui */
+    }
+    .input:focus {
+        @apply ring-2 ring-indigo-500/50 border-indigo-500;
+        /* estado de foco */
+    }
+    .card {
+        @apply rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 shadow-lg;
+    }
+    .table {
+        @apply w-full text-sm;
+    }
+    .th {
+        @apply text-left font-semibold border-b border-white/10 py-2 text-slate-200;
+    }
+    .td {
+        @apply border-b border-white/10 py-2 text-slate-300;
+    }
+    .cta {
+        @apply px-4 py-2 rounded-xl bg-indigo-600 hover: bg-indigo-500 text-white font-medium shadow-sm transition;
+    }
+}
+
+
+/* Tema escuro + autofill (Chrome/Edge) */
+
+input,
+textarea,
+select {
+    color-scheme: dark;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-text-fill-color: #e5e7eb !important;
+    caret-color: #e5e7eb;
+    box-shadow: 0 0 0 1000px rgba(30, 41, 59, .85) inset !important;
+    transition: background-color 99999s ease-in-out 0s;
+}
+
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px rgba(51, 65, 85, .85) inset !important;
+}
