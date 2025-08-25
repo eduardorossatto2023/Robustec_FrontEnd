@@ -1,44 +1,35 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "../pages/Login.vue";
+import Register from "../pages/Register.vue";
+import Dashboard from "../pages/Dashboard.vue";
 
-// ===== Views =====
-import ConsumptionForm from '../views/Consumptions/consumptionForm.vue'
-import TariffsList from '../views/Tariffs/TariffsList.vue'
-import TariffForm from '../views/Tariffs/TariffForm.vue'
-import TariffDetails from '../views/Tariffs/TariffDetails.vue'
+function isAuthenticated() {
+  return !!localStorage.getItem("access_token");
+}
 
-// ===== Lazy views =====
-const Home = () =>
-    import ('../views/Home.vue')
-const Login = () =>
-    import ('../views/Login.vue')
-const Register = () =>
-    import ('../views/Register.vue')
+const routes = [
+  { path: "/login", name: "Login", component: Login },
+  { path: "/register", name: "Register", component: Register },
+  {
+    path: "/",
+    name: "Dashboard",
+    component: Dashboard,
+    meta: { requiresAuth: true },
+  },
+];
 
 const router = createRouter({
-    history: createWebHistory(
-        import.meta.env.BASE_URL),
-    scrollBehavior() {
-        return { top: 0 }
-    },
-    routes: [
-        // Público
-        { path: '/login', name: 'login', component: Login, meta: { public: true } },
-        { path: '/register', name: 'register', component: Register, meta: { public: true } },
+  history: createWebHistory(),
+  routes,
+});
 
-        // Home
-        { path: '/', name: 'home', component: Home },
+// Guard de autenticação
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
-        // Fallback
-        { path: '/:pathMatch(.*)*', redirect: '/' }
-    ]
-})
-
-// Guard simples
-router.beforeEach((to, _from, next) => {
-    const isPublic = to.meta.public || false
-    const token = localStorage.getItem('access_token')
-    if (!isPublic && !token) return next({ name: 'login' })
-    next()
-})
-
-export default router
+export default router;
