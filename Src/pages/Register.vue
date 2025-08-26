@@ -26,21 +26,12 @@ async function submit(){
 </script>
 
 <template>
-  <div class="min-h-[70vh] grid place-items-center">
-    <div class="w-full max-w-md rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 shadow-xl">
-      <h1 class="text-2xl font-semibold text-white mb-4">Criar conta</h1>
-      <div v-if="error" class="mb-3 text-sm text-red-300">{{ error }}</div>
-      <div v-if="success" class="mb-3 text-sm text-emerald-300">{{ success }}</div>
-      <div class="space-y-3">
-        <input v-model="form.name" class="input" placeholder="Nome" autocomplete="name" />
-        <input v-model="form.email" class="input" placeholder="Email" type="email" autocomplete="email" />
-        <input v-model="form.password" class="input" placeholder="Senha" type="password" autocomplete="new-password" />
-        <button class="btn w-full" :disabled="loading" @click="submit">Criar conta</button>
-      </div>
-      <p class="mt-3 text-xs text-slate-400">
-        Já tem conta?
-        <a href="/login" class="underline">Entrar</a>
-      </p>
+    <!-- Formulário de cadastro -->
+    <div class="mb-6 p-6 border rounded shadow-md w-full max-w-md bg-white">
+      <h2 class="text-xl font-semibold mb-4 text-green-900">Cadastrar Novo Usuário</h2>
+      <input v-model="newUser.name" placeholder="Nome" class="input mb-2" />
+      <input v-model="newUser.email" placeholder="Email" class="input mb-2" />
+      <input v-model="newUser.password" type="password" placeholder="Senha" class="input mb-2" />
+      <button class="btn mt-2 w-full" @click="registerUser">Cadastrar</button>
     </div>
-  </div>
 </template>
