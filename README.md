@@ -27,7 +27,7 @@ Este projeto fornece a interface do sistema Robustec, com autenticação, listag
 Clone o repositório e entre na pasta do projeto:
 
 ```bash
-git clone https://github.com/eduardorossatto2023/projeto-robustec.git
+git clone https://github.com/eduardorossatto2023/Robustec_FrontEnd.git
 cd projeto-robustec
 ```
 
