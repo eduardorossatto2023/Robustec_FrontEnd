@@ -1,5 +1,4 @@
 <template>
-  
   <!-- Fundo com degrade laranja claro -> laranja escuro -->
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-orange-500 to-orange-800">
     <!-- Card central branco + sombra -->
@@ -23,8 +22,7 @@
   </div>
 </template>
 
-<script setup>
-
+<!-- <script setup>
 import { ref } from "vue";
 import { AuthService } from "../services/authService";
 
@@ -45,6 +43,41 @@ async function submit() {
     error.value = e.response?.data || e.message;
   } finally {
     loading.value = false;
+  }
+}
+</script> -->
+
+<script setup>
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
+
+const form = ref({ email: "", password: "" })
+const loading = ref(false)
+const error = ref("")
+
+async function submit() {
+  error.value = ""
+  loading.value = true
+  try {
+    // Simulação: apenas salva no localStorage e redireciona
+    localStorage.setItem("access_token", "fake-token")
+    localStorage.setItem("refresh_token", "fake-refresh")
+    localStorage.setItem("user", JSON.stringify({ email: form.value.email }))
+
+    // regra de redirecionamento pelo email
+    if (form.value.email.includes("comercial")) {
+      router.push("/comercial")
+    } else if (form.value.email.includes("engenharia")) {
+      router.push("/engenharia")
+    } else {
+      router.push("/") // fallback
+    }
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    loading.value = false
   }
 }
 </script>
