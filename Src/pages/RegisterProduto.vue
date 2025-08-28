@@ -22,9 +22,9 @@
 
         <!-- Menu dropdown -->
         <div v-if="menuOpen" class="absolute right-0 mt-20 w-60 bg-green-800 text-white rounded shadow-lg z-50">
-          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goToRegister">Cadastrar Usuário</button>
-          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goToEditUsers">Editar Usuários</button>
-          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goTolistUsers">Listar Usuário</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goToAddProduct">Adicionar Produto</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goToEditProduct">Editar Produto</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="goTolistProduct">Listar Produtos</button>
           <button class="w-full text-left px-4 py-2 hover:bg-green-700" @click="logout">Sair</button>
         </div>
       </div>
@@ -35,15 +35,15 @@
 
     <!-- Card do formulário centralizado -->
     <div class="p-8 border rounded shadow-md w-full max-w-md bg-white">
-      <h2 class="text-xl font-semibold mb-4 text-green-900">Cadastrar Novo Usuário</h2>
+      <h2 class="text-xl font-semibold mb-4 text-green-900">Cadastrar Novo Produto</h2>
 
       <!-- Mensagens de erro ou sucesso -->
       <div v-if="error" class="text-red-500 mb-2">{{ error }}</div>
       <div v-if="success" class="text-green-600 mb-2">{{ success }}</div>
 
       <input v-model="form.name" placeholder="Nome" class="input mb-2" />
-      <input v-model="form.email" placeholder="Email" class="input mb-2" />
-      <input v-model="form.password" type="password" placeholder="Senha" class="input mb-2" />
+      <input v-model="form.description" placeholder="Descrição" class="input mb-2" />
+      <input v-model="form.number" type="ID do produto" placeholder="ID do produto" class="input mb-2" />
 
       <button class="btn mt-2 w-full" @click="submit" :disabled="loading">
         {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
@@ -75,31 +75,34 @@ const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
 
-const goToRegister = () => {
-  menuOpen.value = false
-  router.push("/register")
-}
+const goToAddProduct = () => {
+  menuOpen.value = false;
+  window.location.href = "/registerProduto"; 
+};
 
-const goToEditUsers = () => {
-  menuOpen.value = false
-  router.push("/edit-users")
-}
+const goToEditProduct = () => {
+  menuOpen.value = false;
+  window.location.href = "/Engenharia";
+};
 
-const goTolistUsers = () => {
-  menuOpen.value = false
-  router.push("/comercial")
-}
+const goTolistProduct = () => {
+  menuOpen.value = false;
+  window.location.href = "/Engenharia";
+};
 
 const logout = async () => {
-  const refreshToken = localStorage.getItem("refresh_token")
+  const refreshToken = localStorage.getItem("refresh_token");
   if (refreshToken) {
-    try { await AuthService.logout(refreshToken) } 
-    catch (err) { console.error("Erro ao fazer logout:", err) }
+    try { 
+      await AuthService.logout(refreshToken); 
+    } catch (error) { 
+      console.error("Erro ao fazer logout:", error); 
+    }
   }
-  localStorage.removeItem("user")
-  localStorage.removeItem("refresh_token")
-  router.push("/")
-}
+  localStorage.removeItem("user");
+  localStorage.removeItem("refresh_token");
+  window.location.href = "/";
+};
 
 async function submit() {
   error.value = ''; success.value = ''; loading.value = true
@@ -108,8 +111,8 @@ async function submit() {
     localStorage.setItem('access_token', res.access_token)
     localStorage.setItem('refresh_token', res.refresh_token)
     localStorage.setItem('user', JSON.stringify(res.user))
-    success.value = 'Conta criada com sucesso! Redirecionando...'
-    setTimeout(() => { window.location.href = '/' }, 800)
+    success.value = 'Produto adicionado com sucesso!'
+    setTimeout(() => { window.location.href = '/engenharia' }, 800)
   } catch (e) {
     error.value = e.response?.data || e.message
   } finally {
