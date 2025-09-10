@@ -1,99 +1,117 @@
-# Projeto Robustec (Frontend)
+Aqui está um README.md que resume o projeto front-end que você me enviou:
 
-Frontend desenvolvido em **Vue 3** com **Vite** e **TailwindCSS**.  
-Este projeto fornece a interface do sistema Robustec, com autenticação, listagem de usuários e navegação.
+# Frontend - Robustec
+
+Este é o frontend de um sistema de gestão com autenticação, cadastro de usuários e produtos.  
+O projeto foi desenvolvido em **Vue 3** com **Vue Router** e **TailwindCSS**, e se comunica com um backend (API em Go) para autenticação e gerenciamento de dados.
 
 ---
 
-## 🚀 Tecnologias
-
-- [Vue 3](https://vuejs.org/)
-- [Vite](https://vitejs.dev/)
+## 🚀 Tecnologias Utilizadas
+- [Vue 3](https://vuejs.org/) (Composition API + Single File Components)
 - [Vue Router](https://router.vuejs.org/)
-- [Axios](https://axios-http.com/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/) (requisições HTTP)
+- [TailwindCSS](https://tailwindcss.com/) (estilização)
 
 ---
 
-## 📦 Requisitos
+## 📂 Estrutura do Projeto
 
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- npm ou yarn
+
+
+src/
+├─ assets/ # Estilos e imagens
+│ └─ tailwind.css
+├─ components/ # Componentes reutilizáveis
+│ └─ DashboardLayout.vue
+├─ pages/ # Páginas principais
+│ ├─ Login.vue
+│ ├─ Register.vue
+│ ├─ Comercial.vue
+│ ├─ Engenharia.vue
+│ └─ RegisterProduto.vue
+├─ router/ # Configuração de rotas
+│ └─ index.js
+├─ services/ # Serviços de integração com API
+│ └─ authService.js
+├─ App.vue # Componente raiz
+└─ main.js # Ponto de entrada da aplicação
+
 
 ---
 
-## ⚙️ Instalação
+## ⚙️ Funcionalidades
 
-Clone o repositório e entre na pasta do projeto:
+- **Autenticação de Usuários**
+  - Login, logout, registro e refresh de token
+  - Proteção de rotas com `beforeEach`
 
+- **Módulo Comercial**
+  - Listagem e gerenciamento de usuários
+
+- **Módulo Engenharia**
+  - Listagem e gerenciamento de produtos
+  - Cadastro de novos produtos
+
+- **UI/UX**
+  - Layout responsivo
+  - Estilização com Tailwind
+  - Navbar com menu suspenso
+
+---
+
+## 🔑 Rotas Principais
+
+- `/` → **Login**
+- `/register` → **Cadastro de Usuário**
+- `/comercial` → **Área Comercial** (protegida)
+- `/engenharia` → **Área de Engenharia** (protegida)
+- `/registerProduto` → **Cadastro de Produto**
+
+---
+
+## 🛠️ Como Executar
+
+### Pré-requisitos
+- [Node.js](https://nodejs.org/) (>= 16)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+### Instalação
 ```bash
-git clone https://github.com/eduardorossatto2023/Robustec_FrontEnd.git
-cd projeto-robustec
-```
-
-Instale as dependências:
-
-```bash
+# Instalar dependências
 npm install
 # ou
 yarn install
-```
 
----
-
-## ▶️ Rodando em desenvolvimento
-
-```bash
+Rodar o projeto
 npm run dev
-```
+# ou
+yarn dev
 
-O servidor ficará disponível em:
 
-```
+O frontend será iniciado em:
+
 http://localhost:5173
-```
 
----
+🔗 Backend
 
-## 🛠️ Build para produção
+Este frontend espera um backend rodando em:
 
-```bash
-npm run build
-```
+http://localhost:8080
 
-Para visualizar o build localmente:
 
-```bash
-npm run preview
-```
+As rotas de autenticação estão em /auth.
 
----
+📌 Melhorias Futuras
 
-## 📂 Estrutura do projeto
+Criar serviços separados para usuários e produtos (não apenas AuthService)
 
-```
-projeto-robustec/
-│── src/
-│   ├── assets/          # Imagens e arquivos estáticos
-│   ├── components/      # Componentes Vue reutilizáveis
-│   ├── services/        # Serviços (ex: AuthService)
-│   ├── views/           # Páginas da aplicação
-│   ├── App.vue          # Componente principal
-│   └── main.js          # Ponto de entrada
-│
-│── index.html           # HTML principal
-│── tailwind.config.js   # Configuração TailwindCSS
-│── postcss.config.js    # Configuração PostCSS
-│── vite.config.js       # Configuração Vite
-│── package.json         # Scripts e dependências
-```
+Implementar edição de usuários/produtos
 
----
+Melhorar tratamento de erros e mensagens de feedback
 
-## 🔑 Scripts disponíveis
+Criar testes automatizados
 
-- `npm run dev` → Inicia o servidor de desenvolvimento
-- `npm run build` → Gera build de produção
-- `npm run preview` → Servidor local para testar o build
+👨‍💻 Autor
 
----
+Desenvolvido por Eduardo Rossatto e equipe como alunos da Faculdade Cesurg Marau.
