@@ -38,7 +38,14 @@ async function submit() {
     localStorage.setItem("access_token", res.access_token);
     localStorage.setItem("refresh_token", res.refresh_token);
     localStorage.setItem("user", JSON.stringify(res.user));
-    window.location.href = "/";
+    if (res.user.role === "comercial") {
+      window.location.href = "/comercial";
+    } else if (res.user.role === "engenharia") {
+      window.location.href = "/engenharia";
+      } else {
+       window.location.href = "/";
+      }
+
   } catch (e) {
     error.value = e.response?.data || e.message;
   } finally {
@@ -46,42 +53,6 @@ async function submit() {
   }
 }
 </script>
-
-<!-- <script setup>
-import { ref } from "vue"
-import { useRouter } from "vue-router"
-
-const router = useRouter()
-
-const form = ref({ email: "", password: "" })
-const loading = ref(false)
-const error = ref("")
-
-async function submit() {
-  error.value = ""
-  loading.value = true
-  try {
-    // Simulação: apenas salva no localStorage e redireciona
-    localStorage.setItem("access_token", "fake-token")
-    localStorage.setItem("refresh_token", "fake-refresh")
-    localStorage.setItem("user", JSON.stringify({ email: form.value.email }))
-
-    // regra de redirecionamento pelo email
-    if (form.value.email.includes("comercial")) {
-      router.push("/comercial")
-    } else if (form.value.email.includes("engenharia")) {
-      router.push("/engenharia")
-    } else {
-      router.push("/") // fallback
-    }
-  } catch (e) {
-    error.value = e.message
-  } finally {
-    loading.value = false
-  }
-}
-</script> -->
-
 <style scoped>
 .input {
   width: 100%;
